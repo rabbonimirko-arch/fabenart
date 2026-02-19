@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Digital Screen Italia – Assistente AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <style>
+    :root{
+      --dsi-primary:#19C6E4;   /* Azzurro logo */
+      --dsi-secondary:#0B6FB3; /* Blu profondo */
+      --bg:#020617;
+      --line:rgba(25,198,228,.35);
+      --txt:#e5e7eb;
+      --muted:#9adff0;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html, body{
+      width:100%;
+      height:100%;
+      background:var(--bg);
+      color:var(--txt);
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      overflow:hidden;
+    }
+
+    body{
+      min-height:100svh;
+      display:flex;
+      flex-direction:column;
+      padding:
+        env(safe-area-inset-top)
+        env(safe-area-inset-right)
+        env(safe-area-inset-bottom)
+        env(safe-area-inset-left);
+    }
+
+    /* TOP BAR */
+    .topbar{
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(
+        180deg,
+        rgba(11,111,179,.35),
+        rgba(2,8,23,.90)
+      );
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+
+    /* BRAND */
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+
+    .brand .logo{
+      width:34px;
+      height:34px;
+      object-fit:contain;
+      filter:drop-shadow(0 0 12px rgba(25,198,228,.45));
+      flex-shrink:0;
+    }
+
+    .brand .text{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+    }
+
+    .brand .t1{
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      color:#ffffff;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .brand .t2{
+      font-size:10px;
+      color:var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* BUTTONS – DSI STYLE */
+    .btn{
+      border:1px solid rgba(25,198,228,.55);
+      background:linear-gradient(
+        135deg,
+        var(--dsi-primary),
+        var(--dsi-secondary)
+      );
+      color:#001018;
+      font-weight:900;
+      font-size:12px;
+      padding:10px 14px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      user-select:none;
+      box-shadow:
+        0 0 0 0 rgba(25,198,228,0),
+        0 6px 18px rgba(11,111,179,.35);
+      transition:all .25s ease;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:
+        0 0 0 3px rgba(25,198,228,.35),
+        0 10px 26px rgba(11,111,179,.45);
+    }
+
+    .btn:active{
+      transform:translateY(1px);
+      box-shadow:
+        0 0 0 2px rgba(25,198,228,.45);
+    }
+
+    /* AI AREA */
+    .ai-wrap{
+      flex:1 1 auto;
+      min-height:0;
+      position:relative;
+      background:#000;
+    }
+
+    iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+      background:#000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <a class="btn" href="index.html" aria-label="Torna alla home">← Home</a>
+
+    <div class="brand">
+      <img src="logo digital screen 2.png" alt="Digital Screen Italia" class="logo">
+      <div class="text">
+        <div class="t1">DIGITAL SCREEN ITALIA · AI</div>
+        <div class="t2">Parla con l’assistente virtuale</div>
+      </div>
+    </div>
+
+    <button class="btn" id="reloadBtn" aria-label="Ricarica avatar">↻ Ricarica</button>
+  </header>
+
+  <!-- AI FULLSCREEN -->
+  <main class="ai-wrap">
+    <iframe
+      id="aiFrame"
+      title="Digital Screen Italia – HeyGen"
+      allow="microphone; autoplay; clipboard-write"
+      referrerpolicy="no-referrer">
+    </iframe>
+  </main>
+
+  <!-- HEYGEN EMBED -->
+  <script>
+    const host = "https://labs.heygen.com";
+    const share =
+      "eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJLYXR5YV9Qcm9mZXNzaW9uYWxMb29rX3B1%0D%0AYmxpYyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3YzLzM0%0D%0AOGRkZjUwM2M2NTRiOWJiYmI4YmVhOWY5MjEwZWFkXzU1ODcwL3ByZXZpZXdfdGFyZ2V0LndlYnAi%0D%0ALCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6dHJ1ZSwia25vd2xlZGdlQmFzZUlkIjoiMzY4YjE1NzJl%0D%0AYjQwNGY1ZGI3MWI3OWZkMjUyYTM1MTQiLCJ1c2VybmFtZSI6ImZiNDBjZGI1NjdlZjRjMTg5MDM4%0D%0ANDkwODI5YzIwZTZmIn0%3D";
+
+    const src = host + "/guest/streaming-embed?share=" + share + "&inIFrame=1";
+    const frame = document.getElementById("aiFrame");
+    frame.src = src;
+
+    document.getElementById("reloadBtn").addEventListener("click", () => {
+      frame.src = src + "&t=" + Date.now();
+    });
+  </script>
+
+</body>
+</html>
