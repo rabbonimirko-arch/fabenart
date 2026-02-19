@@ -4,123 +4,508 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#07070a" />
-  <title>FABEN — Art • Murales • Sculptures</title>
-  <meta name="description" content="Artiste multimédia : sculptures, peinture, murales, installations. Portfolio, liens et galerie." />
+  <title>FABEN — Art • Murales • Sculptures • Installations</title>
+  <meta name="description" content="Artiste multimédia : peintures, sculptures, murales et installations. Portfolio, liens et galerie." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <style>
     :root{
       --bg:#07070a;
-      --card: rgba(255,255,255,.06);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
+      --line: rgba(255,255,255,.14);
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.09);
       --shadow: 0 18px 70px rgba(0,0,0,.55);
-      --n1: #ff2ea6;
-      --n2: #7c3aed;
-      --n3: #22d3ee;
-      --n4: #a3ff12;
+
+      /* neon */
+      --n1:#ff2ea6;
+      --n2:#7c3aed;
+      --n3:#22d3ee;
+      --n4:#a3ff12;
+
+      --radius: 22px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
       background:
-        radial-gradient(1200px 800px at 12% 8%, rgba(255,46,166,.14), transparent 60%),
-        radial-gradient(1000px 700px at 88% 22%, rgba(34,211,238,.12), transparent 60%),
+        radial-gradient(1200px 900px at 20% 10%, rgba(255,46,166,.14), transparent 60%),
+        radial-gradient(1100px 900px at 85% 25%, rgba(34,211,238,.12), transparent 62%),
+        radial-gradient(900px 700px at 55% 90%, rgba(124,58,237,.14), transparent 62%),
         linear-gradient(180deg, #050507 0%, #07070a 55%, #050507 100%);
+      overflow-x:hidden;
     }
 
+    /* Layout: mobile-first, “full screen” feel */
     .wrap{
       min-height:100%;
-      padding: 20px 16px;
+      padding: max(14px, env(safe-area-inset-top)) 14px max(18px, env(safe-area-inset-bottom));
       display:flex;
       justify-content:center;
     }
-
     .page{
       width: min(980px, 100%);
       display:grid;
-      gap:16px;
+      gap:14px;
     }
 
-    .hero{
-      border-radius:24px;
-      border:1px solid rgba(255,255,255,.14);
+    /* Header */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+      min-width:0;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      background:
+        radial-gradient(14px 14px at 30% 35%, rgba(255,255,255,.22), transparent 60%),
+        linear-gradient(135deg, rgba(255,46,166,.95), rgba(34,211,238,.75), rgba(124,58,237,.9));
+      box-shadow: 0 14px 40px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.18);
+      position:relative;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: conic-gradient(from 180deg, transparent, rgba(255,255,255,.25), transparent);
+      animation: spin 6s linear infinite;
+      opacity:.35;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .brand h1{
+      margin:0;
+      font-size: 15px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      line-height:1.05;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand small{
+      display:block;
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.06em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.06);
-      box-shadow: var(--shadow);
-      padding:20px;
+      color: rgba(255,255,255,.84);
+      font-size:12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      white-space:nowrap;
     }
 
-    h1,h2,h3{margin:0}
-
-    h2{
-      font-size: clamp(26px, 5vw, 44px);
+    /* HERO (mobile: looks like a full section) */
+    .hero{
+      border-radius: calc(var(--radius) + 6px);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      min-height: 62vh;   /* important for mobile impact */
+      background: #0a0a0f;
+    }
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.72)),
+        url("https://image.jimcdn.com/cdn-cgi/image//app/cms/storage/image/path/s72a6de219439287a/image/ia44a424ec685e36f/version/1530201400/image.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.05) contrast(1.03);
+      transform: scale(1.04);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        repeating-linear-gradient( 115deg,
+          rgba(255,255,255,.07) 0px,
+          rgba(255,255,255,.07) 1px,
+          transparent 1px,
+          transparent 18px
+        );
+      opacity:.18;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+    .hero-inner{
+      position:relative;
+      padding: 18px;
+      display:grid;
+      gap:14px;
+      height:100%;
+      align-content:end;
+    }
+    .kicker{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      font-size:12px;
+      color: rgba(255,255,255,.78);
+      letter-spacing:.14em;
       text-transform: uppercase;
     }
-
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg, var(--n3), var(--n4));
+      box-shadow: 0 0 18px rgba(34,211,238,.55);
+      flex:0 0 auto;
+    }
+    .hero h2{
+      margin:0;
+      font-size: clamp(28px, 7vw, 52px);
+      line-height: 1.0;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
     .subtitle{
-      color:var(--muted);
-      margin-top:10px;
+      color: rgba(255,255,255,.78);
+      font-size: 14px;
       line-height:1.5;
+      max-width: 70ch;
     }
 
+    .cta-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:4px;
+    }
     .btn{
-      display:inline-block;
-      padding:12px 16px;
-      border-radius:14px;
-      background: linear-gradient(135deg, var(--n1), var(--n2));
-      color:white;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      padding: 13px 14px;
+      border-radius: 16px;
       text-decoration:none;
-      font-weight:bold;
-      margin-top:15px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.02em;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      box-shadow: 0 14px 38px rgba(0,0,0,.35);
+      min-height: 48px; /* thumb-friendly */
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); }
+    .btn.primary{
+      border:none;
+      background: linear-gradient(135deg, rgba(255,46,166,.95), rgba(124,58,237,.92));
+    }
+    .btn.primary:hover{ filter: brightness(1.05); }
+
+    /* Cards */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+    }
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+      .chips{ display:none; } /* clean on mobile */
     }
 
     .card{
-      border-radius:22px;
+      border-radius: var(--radius);
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      padding:16px;
       box-shadow: var(--shadow);
+      overflow:hidden;
     }
-
-    .links a{
-      display:block;
-      padding:10px;
-      border-radius:12px;
-      margin-bottom:8px;
-      background: rgba(0,0,0,.3);
-      text-decoration:none;
-      color:white;
+    .hd{
+      padding:14px 16px 0;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
     }
-
-    .gallery{
-      column-count:3;
-      column-gap:10px;
+    .card h3{
+      margin:0;
+      font-size: 13px;
+      letter-spacing:.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.86);
     }
-
-    .gallery img{
-      width:100%;
-      margin-bottom:10px;
-      border-radius:14px;
-    }
-
-    @media(max-width:768px){
-      .gallery{column-count:2;}
-    }
-
-    @media(max-width:480px){
-      .gallery{column-count:1;}
-    }
-
-    footer{
-      text-align:center;
-      color:var(--muted);
+    .hint{
       font-size:12px;
+      color: rgba(255,255,255,.60);
+    }
+    .bd{
+      padding:14px 16px 16px;
+      color: var(--muted);
+      line-height:1.55;
+      font-size:14px;
+    }
+
+    /* Links */
+    .links{
+      display:grid;
+      gap:10px;
       margin-top:10px;
     }
+    .link{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      text-decoration:none;
+      color: rgba(255,255,255,.88);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .link:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.20);
+      background: rgba(0,0,0,.26);
+    }
+    .link .l{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:0;
+    }
+    .link b{
+      font-size:14px;
+      letter-spacing:.02em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .link span{
+      font-size:12px;
+      color: rgba(255,255,255,.62);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .arr{ opacity:.85; font-weight:900; }
 
+    /* Featured strip (mobile nice) */
+    .featured{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+    @media (max-width: 520px){
+      .featured{ grid-template-columns: 1fr; }
+    }
+    .feat{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      background: rgba(0,0,0,.22);
+      position:relative;
+    }
+    .feat img{
+      width:100%;
+      height: 160px;
+      object-fit:cover;
+      display:block;
+      filter: saturate(1.05);
+    }
+    .feat .cap{
+      padding:10px 12px 12px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+      color: rgba(255,255,255,.74);
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    /* Gallery */
+    .gallery-tools{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-top:10px;
+    }
+    .file{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.20);
+      cursor:pointer;
+      user-select:none;
+      color: rgba(255,255,255,.86);
+      font-weight:800;
+      letter-spacing:.02em;
+      min-height:48px;
+    }
+    .file input{
+      position:absolute; inset:0; opacity:0; cursor:pointer;
+    }
+
+    .masonry{
+      column-count: 2;
+      column-gap: 12px;
+      margin-top:12px;
+    }
+    @media (min-width: 900px){ .masonry{ column-count: 3; } }
+
+    .ph{
+      break-inside: avoid;
+      margin: 0 0 12px;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, filter .12s ease;
+    }
+    .ph:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.22); filter: brightness(1.05); }
+    .ph img{
+      width:100%;
+      display:block;
+      height:auto;
+    }
+    .cap{
+      padding:10px 12px 12px;
+      color: rgba(255,255,255,.74);
+      font-size:12px;
+      line-height:1.35;
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+
+    /* Lightbox */
+    .lb{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      background: rgba(0,0,0,.78);
+      z-index: 50;
+    }
+    .lb.open{ display:flex; }
+    .lb-inner{
+      width:min(980px, 100%);
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(10,10,14,.78);
+      box-shadow: 0 30px 120px rgba(0,0,0,.75);
+      overflow:hidden;
+      position:relative;
+    }
+    .lb-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 12px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .lb-top b{
+      font-size:13px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.82);
+    }
+    .x{
+      border:none;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.9);
+      border-radius: 14px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:900;
+      min-height:44px;
+    }
+    .lb-img{
+      width:100%;
+      max-height: 78vh;
+      object-fit: contain;
+      display:block;
+      background: rgba(0,0,0,.35);
+    }
+    .lb-cap{
+      padding:12px 14px 14px;
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      line-height:1.45;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+
+    /* Sticky bottom CTA (mobile conversion booster) */
+    .sticky{
+      position: sticky;
+      bottom: 10px;
+      z-index: 20;
+      display:flex;
+      justify-content:center;
+      pointer-events:none; /* so it doesn't block scroll */
+    }
+    .sticky .bar{
+      pointer-events:auto;
+      width: min(980px, 100%);
+      display:flex;
+      gap:10px;
+      padding:10px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 18px 70px rgba(0,0,0,.55);
+    }
+    .sticky .bar a{ flex:1; justify-content:center; }
+
+    footer{
+      padding: 6px 4px 0;
+      color: rgba(255,255,255,.50);
+      font-size:12px;
+      text-align:center;
+    }
+    footer a{ color: rgba(255,255,255,.72); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.20); }
   </style>
 </head>
 
@@ -128,75 +513,271 @@
   <div class="wrap">
     <div class="page">
 
+      <div class="top">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div style="min-width:0">
+            <h1>FABEN</h1>
+            <small>Art • Murales • Sculptures • Installations</small>
+          </div>
+        </div>
+
+        <div class="chips" aria-hidden="true">
+          <div class="chip">Urban + Luxury</div>
+          <div class="chip">Love vibes</div>
+          <div class="chip">Côte d’Azur</div>
+        </div>
+      </div>
+
       <!-- HERO -->
       <section class="hero">
-        <h2>DIFFUSER L’AMOUR.<br>CRÉER L’ART.</h2>
-        <div class="subtitle">
-          Artiste multimédia : peinture, sculpture, murales et installations.  
-          Une page essentielle pour le portfolio, les contacts, les liens et la galerie d’images.
-        </div>
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <div class="kicker"><span class="dot"></span> HEARTIST • AMBASSADEUR DE L’AMOUR</div>
+          <h2>DIFFUSER L’AMOUR.<br/>CRÉER L’ART.</h2>
+          <div class="subtitle">
+            Artiste multimédia issu du graffiti &amp; street art : peintures, sculptures, murales et installations.
+            <br/>Une landing page claire, pensée pour mobile, QR &amp; NFC.
+          </div>
 
-        <a class="btn" href="https://www.instagram.com/faben.art/" target="_blank">
-          Voir Instagram
-        </a>
-      </section>
-
-      <!-- ABOUT -->
-      <section class="card">
-        <h3>À propos</h3>
-        <p>
-          <strong>Faben</strong> fusionne l’énergie du street-art avec une sensibilité contemporaine :
-          des œuvres qui unissent couleur, geste, message et symboles d’amour.
-        </p>
-
-        <p><strong>Services possibles :</strong></p>
-        <ul>
-          <li>Commandes murales (intérieur / extérieur)</li>
-          <li>Toiles et œuvres de collection</li>
-          <li>Sculptures et installations</li>
-          <li>Collaborations avec marques / événements</li>
-        </ul>
-      </section>
-
-      <!-- LINKS -->
-      <section class="card">
-        <h3>Liens & Références</h3>
-        <div class="links">
-          <a href="https://www.instagram.com/faben.art/" target="_blank">
-            Instagram — @faben.art
-          </a>
-          <a href="#" target="_blank">
-            Facebook — Page officielle
-          </a>
+          <div class="cta-row">
+            <a class="btn primary" href="https://www.instagram.com/faben.art/" target="_blank" rel="noopener">
+              <span class="dot" aria-hidden="true"></span> Voir Instagram
+            </a>
+            <a class="btn" href="#galerie">
+              <span class="dot" aria-hidden="true" style="background:linear-gradient(135deg,var(--n1),var(--n3))"></span>
+              Ouvrir la galerie
+            </a>
+          </div>
         </div>
       </section>
+
+      <!-- GRID -->
+      <div class="grid">
+
+        <!-- ABOUT -->
+        <section class="card">
+          <div class="hd">
+            <h3>À propos</h3>
+            <span class="hint">Texte modifiable</span>
+          </div>
+          <div class="bd">
+            <b style="color:rgba(255,255,255,.88)">Faben</b> fusionne l’énergie du street-art avec une sensibilité contemporaine :
+            des œuvres qui unissent couleur, geste, message et symboles d’amour.
+            <br/><br/>
+            <span style="opacity:.95">Prestations possibles :</span>
+            <ul style="margin:10px 0 0 18px; padding:0">
+              <li>Commandes murales (intérieur / extérieur)</li>
+              <li>Toiles &amp; œuvres de collection</li>
+              <li>Sculptures &amp; installations</li>
+              <li>Collaborations marques / événements</li>
+            </ul>
+
+            <!-- featured images -->
+            <div class="featured" style="margin-top:14px;">
+              <div class="feat" data-src="https://image.jimcdn.com/cdn-cgi/image/width%3D682%2Cheight%3D2048%2Cfit%3Dcontain%2Cformat%3Djpg%2C/app/cms/storage/image/path/s72a6de219439287a/image/if4adc568d2038bb6/version/1530201400/image.jpg" data-cap="Œuvre sur toile — vibes graffiti / calligraphie">
+                <img loading="lazy" src="https://image.jimcdn.com/cdn-cgi/image/width%3D682%2Cheight%3D2048%2Cfit%3Dcontain%2Cformat%3Djpg%2C/app/cms/storage/image/path/s72a6de219439287a/image/if4adc568d2038bb6/version/1530201400/image.jpg" alt="Œuvre sur toile" />
+                <div class="cap">Œuvre sur toile — vibes graffiti / calligraphie</div>
+              </div>
+              <div class="feat" data-src="https://image.jimcdn.com/cdn-cgi/image//app/cms/storage/image/path/s72a6de219439287a/image/i4b761b119b08f98f/version/1530201709/image.jpg" data-cap="Sculpture monumentale — Mister Love">
+                <img loading="lazy" src="https://image.jimcdn.com/cdn-cgi/image//app/cms/storage/image/path/s72a6de219439287a/image/i4b761b119b08f98f/version/1530201709/image.jpg" alt="Sculpture Mister Love" />
+                <div class="cap">Sculpture monumentale — Mister Love</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- LINKS -->
+        <section class="card" id="liens">
+          <div class="hd">
+            <h3>Liens &amp; Références</h3>
+            <span class="hint">Modifie les URL</span>
+          </div>
+          <div class="bd">
+            <div class="links" id="linksList"></div>
+            <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.12)">
+              <div class="hint">
+                Ajoute WhatsApp / email / press kit dans la liste JS “LINKS” (en bas du fichier).
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
 
       <!-- GALLERY -->
-      <section class="card">
-        <h3>Galerie</h3>
-
-        <div class="gallery">
-          <!-- Remplace par tes vraies images -->
-          <img src="https://via.placeholder.com/600x800?text=Œuvre+1" alt="Œuvre 1">
-          <img src="https://via.placeholder.com/600x900?text=Œuvre+2" alt="Œuvre 2">
-          <img src="https://via.placeholder.com/600x700?text=Œuvre+3" alt="Œuvre 3">
+      <section class="card" id="galerie">
+        <div class="hd">
+          <h3>Galerie</h3>
+          <span class="hint">Upload + Lightbox</span>
         </div>
 
-        <p style="margin-top:10px;font-size:12px;color:var(--muted);">
-          Remplace les images par les photos officielles des œuvres.
-        </p>
+        <div class="bd">
+          <div class="gallery-tools">
+            <label class="file" title="Ajouter des photos (multi-sélection)">
+              + Ajouter des photos
+              <input id="uploader" type="file" accept="image/*" multiple />
+            </label>
+
+            <button class="btn" id="clearBtn" type="button" style="padding:13px 14px;">
+              Réinitialiser
+            </button>
+
+            <div class="hint">
+              Les photos ajoutées ici restent <b>dans le navigateur</b>.  
+              Pour les publier “définitivement”, mets les URL dans la liste JS “GALLERY”.
+            </div>
+          </div>
+
+          <div class="masonry" id="galleryGrid"></div>
+        </div>
       </section>
 
       <footer>
-        © <span id="year"></span> — Landing page optimisée mobile / NFC / Vercel
+        © <span id="y"></span> • Landing page mobile •
+        <a href="#liens">liens</a>
       </footer>
+
+      <!-- Sticky CTA -->
+      <div class="sticky">
+        <div class="bar">
+          <a class="btn primary" href="https://www.instagram.com/faben.art/" target="_blank" rel="noopener">
+            <span class="dot" aria-hidden="true"></span> Instagram
+          </a>
+          <a class="btn" href="#galerie">
+            <span class="dot" aria-hidden="true" style="background:linear-gradient(135deg,var(--n4),var(--n2))"></span>
+            Galerie
+          </a>
+        </div>
+      </div>
 
     </div>
   </div>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <!-- Lightbox -->
+  <div class="lb" id="lightbox" aria-hidden="true">
+    <div class="lb-inner" role="dialog" aria-modal="true" aria-label="Aperçu image">
+      <div class="lb-top">
+        <b id="lbTitle">Artwork</b>
+        <button class="x" id="lbClose" type="button">✕</button>
+      </div>
+      <img class="lb-img" id="lbImg" alt="Image" />
+      <div class="lb-cap" id="lbCap"></div>
+    </div>
+  </div>
 
+  <script>
+    // ✅ MODIFIE ICI: liens principaux
+    const LINKS = [
+      { title: "Instagram", subtitle: "@faben.art", url: "https://www.instagram.com/faben.art/" },
+      // Exemple :
+      // { title: "WhatsApp", subtitle: "Écris-moi", url: "https://wa.me/33XXXXXXXXX" },
+      // { title: "Email", subtitle: "Contact", url: "mailto:info@tondomaine.com" },
+      // { title: "Press Kit", subtitle: "Bio + photos + portfolio", url: "https://tondomaine.com/presskit.pdf" },
+    ];
+
+    // ✅ Galerie “officielle” avec images déjà intégrées
+    const GALLERY = [
+      { src: "https://image.jimcdn.com/cdn-cgi/image//app/cms/storage/image/path/s72a6de219439287a/image/ia44a424ec685e36f/version/1530201400/image.jpg", cap: "Œuvre — énergie graffiti / couleurs" },
+      { src: "https://image.jimcdn.com/cdn-cgi/image/width%3D682%2Cheight%3D2048%2Cfit%3Dcontain%2Cformat%3Djpg%2C/app/cms/storage/image/path/s72a6de219439287a/image/if4adc568d2038bb6/version/1530201400/image.jpg", cap: "Toile — calligraphie & love vibes" },
+      { src: "https://image.jimcdn.com/cdn-cgi/image//app/cms/storage/image/path/s72a6de219439287a/image/i4b761b119b08f98f/version/1530201709/image.jpg", cap: "Sculpture monumentale — Mister Love" },
+      { src: "https://world-arabia.com/storage/images/uploaded/8QXxlw3MZUgT1uJY8vConTsXUzuUkYRp1eH46c13.webp", cap: "Atelier / performance — work in progress" },
+      { src: "https://world-arabia.com/storage/images/uploaded/pwz2k3TuXrwhpfpQx77YoSkKaVu55sfhSiVI1s1C.webp", cap: "Détail — lettering & hologram vibes" },
+    ];
+
+    // Render links
+    const linksList = document.getElementById("linksList");
+    LINKS.forEach(l => {
+      const a = document.createElement("a");
+      a.className = "link";
+      a.href = l.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.innerHTML = `
+        <div class="l">
+          <b>${escapeHtml(l.title)}</b>
+          <span>${escapeHtml(l.subtitle || l.url)}</span>
+        </div>
+        <div class="arr">↗</div>
+      `;
+      linksList.appendChild(a);
+    });
+
+    // Gallery rendering
+    const grid = document.getElementById("galleryGrid");
+    function addPhotoCard({src, cap}) {
+      const wrap = document.createElement("div");
+      wrap.className = "ph";
+      wrap.innerHTML = `
+        <img loading="lazy" src="${src}" alt="${escapeHtml(cap || "Artwork")}" />
+        <div class="cap">${escapeHtml(cap || "")}</div>
+      `;
+      wrap.addEventListener("click", () => openLB(src, cap || "Artwork"));
+      grid.appendChild(wrap);
+    }
+    GALLERY.forEach(addPhotoCard);
+
+    // Upload preview (browser-only)
+    const uploader = document.getElementById("uploader");
+    const clearBtn = document.getElementById("clearBtn");
+    let uploadedUrls = [];
+
+    uploader.addEventListener("change", (e) => {
+      const files = Array.from(e.target.files || []);
+      if (!files.length) return;
+      files.forEach(file => {
+        const url = URL.createObjectURL(file);
+        uploadedUrls.push(url);
+        addPhotoCard({ src: url, cap: file.name });
+      });
+      uploader.value = "";
+    });
+
+    clearBtn.addEventListener("click", () => {
+      uploadedUrls.forEach(u => URL.revokeObjectURL(u));
+      uploadedUrls = [];
+      grid.innerHTML = "";
+      GALLERY.forEach(addPhotoCard);
+    });
+
+    // Lightbox
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbCap = document.getElementById("lbCap");
+    const lbClose = document.getElementById("lbClose");
+
+    function openLB(src, cap){
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden","false");
+      lbImg.src = src;
+      lbCap.textContent = cap || "";
+      document.body.style.overflow = "hidden";
+    }
+    function closeLB(){
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden","true");
+      lbImg.src = "";
+      document.body.style.overflow = "";
+    }
+    lbClose.addEventListener("click", closeLB);
+    lb.addEventListener("click", (e) => { if (e.target === lb) closeLB(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLB(); });
+
+    // Make featured images clickable too
+    document.querySelectorAll(".feat").forEach(el=>{
+      el.addEventListener("click", ()=> openLB(el.dataset.src, el.dataset.cap || "Artwork"));
+    });
+
+    // Helpers
+    function escapeHtml(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
