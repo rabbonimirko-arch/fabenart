@@ -1,203 +1,201 @@
-<!DOCTYPE html>
-<html lang="it">
+<!doctype html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Digital Screen Italia – Assistente AI</title>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07070a" />
+  <title>FABEN — Art • Murales • Sculptures</title>
+  <meta name="description" content="Artiste multimédia : sculptures, peinture, murales, installations. Portfolio, liens et galerie." />
 
   <style>
     :root{
-      --dsi-primary:#19C6E4;   /* Azzurro logo */
-      --dsi-secondary:#0B6FB3; /* Blu profondo */
-      --bg:#020617;
-      --line:rgba(25,198,228,.35);
-      --txt:#e5e7eb;
-      --muted:#9adff0;
+      --bg:#07070a;
+      --card: rgba(255,255,255,.06);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --shadow: 0 18px 70px rgba(0,0,0,.55);
+      --n1: #ff2ea6;
+      --n2: #7c3aed;
+      --n3: #22d3ee;
+      --n4: #a3ff12;
     }
 
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
-
-    html, body{
-      width:100%;
-      height:100%;
-      background:var(--bg);
-      color:var(--txt);
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      overflow:hidden;
-    }
-
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      min-height:100svh;
+      margin:0;
+      font-family: ui-sans-serif, system-ui;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 12% 8%, rgba(255,46,166,.14), transparent 60%),
+        radial-gradient(1000px 700px at 88% 22%, rgba(34,211,238,.12), transparent 60%),
+        linear-gradient(180deg, #050507 0%, #07070a 55%, #050507 100%);
+    }
+
+    .wrap{
+      min-height:100%;
+      padding: 20px 16px;
       display:flex;
-      flex-direction:column;
-      padding:
-        env(safe-area-inset-top)
-        env(safe-area-inset-right)
-        env(safe-area-inset-bottom)
-        env(safe-area-inset-left);
+      justify-content:center;
     }
 
-    /* TOP BAR */
-    .topbar{
-      flex:0 0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 12px;
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(
-        180deg,
-        rgba(11,111,179,.35),
-        rgba(2,8,23,.90)
-      );
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
+    .page{
+      width: min(980px, 100%);
+      display:grid;
+      gap:16px;
     }
 
-    /* BRAND */
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0;
+    .hero{
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      box-shadow: var(--shadow);
+      padding:20px;
     }
 
-    .brand .logo{
-      width:34px;
-      height:34px;
-      object-fit:contain;
-      filter:drop-shadow(0 0 12px rgba(25,198,228,.45));
-      flex-shrink:0;
+    h1,h2,h3{margin:0}
+
+    h2{
+      font-size: clamp(26px, 5vw, 44px);
+      text-transform: uppercase;
     }
 
-    .brand .text{
-      display:flex;
-      flex-direction:column;
-      min-width:0;
-    }
-
-    .brand .t1{
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-size:12px;
-      color:#ffffff;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .brand .t2{
-      font-size:10px;
+    .subtitle{
       color:var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      margin-top:10px;
+      line-height:1.5;
     }
 
-    /* BUTTONS – DSI STYLE */
     .btn{
-      border:1px solid rgba(25,198,228,.55);
-      background:linear-gradient(
-        135deg,
-        var(--dsi-primary),
-        var(--dsi-secondary)
-      );
-      color:#001018;
-      font-weight:900;
-      font-size:12px;
-      padding:10px 14px;
-      border-radius:999px;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      user-select:none;
-      box-shadow:
-        0 0 0 0 rgba(25,198,228,0),
-        0 6px 18px rgba(11,111,179,.35);
-      transition:all .25s ease;
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:14px;
+      background: linear-gradient(135deg, var(--n1), var(--n2));
+      color:white;
       text-decoration:none;
-      white-space:nowrap;
+      font-weight:bold;
+      margin-top:15px;
     }
 
-    .btn:hover{
-      transform:translateY(-1px);
-      box-shadow:
-        0 0 0 3px rgba(25,198,228,.35),
-        0 10px 26px rgba(11,111,179,.45);
+    .card{
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding:16px;
+      box-shadow: var(--shadow);
     }
 
-    .btn:active{
-      transform:translateY(1px);
-      box-shadow:
-        0 0 0 2px rgba(25,198,228,.45);
+    .links a{
+      display:block;
+      padding:10px;
+      border-radius:12px;
+      margin-bottom:8px;
+      background: rgba(0,0,0,.3);
+      text-decoration:none;
+      color:white;
     }
 
-    /* AI AREA */
-    .ai-wrap{
-      flex:1 1 auto;
-      min-height:0;
-      position:relative;
-      background:#000;
+    .gallery{
+      column-count:3;
+      column-gap:10px;
     }
 
-    iframe{
-      position:absolute;
-      inset:0;
+    .gallery img{
       width:100%;
-      height:100%;
-      border:0;
-      background:#000;
+      margin-bottom:10px;
+      border-radius:14px;
     }
+
+    @media(max-width:768px){
+      .gallery{column-count:2;}
+    }
+
+    @media(max-width:480px){
+      .gallery{column-count:1;}
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:10px;
+    }
+
   </style>
 </head>
 
 <body>
+  <div class="wrap">
+    <div class="page">
 
-  <!-- TOP BAR -->
-  <header class="topbar">
-    <a class="btn" href="index.html" aria-label="Torna alla home">← Home</a>
+      <!-- HERO -->
+      <section class="hero">
+        <h2>DIFFUSER L’AMOUR.<br>CRÉER L’ART.</h2>
+        <div class="subtitle">
+          Artiste multimédia : peinture, sculpture, murales et installations.  
+          Une page essentielle pour le portfolio, les contacts, les liens et la galerie d’images.
+        </div>
 
-    <div class="brand">
-      <img src="logo digital screen 2.png" alt="Digital Screen Italia" class="logo">
-      <div class="text">
-        <div class="t1">DIGITAL SCREEN ITALIA · AI</div>
-        <div class="t2">Parla con l’assistente virtuale</div>
-      </div>
+        <a class="btn" href="https://www.instagram.com/faben.art/" target="_blank">
+          Voir Instagram
+        </a>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="card">
+        <h3>À propos</h3>
+        <p>
+          <strong>Faben</strong> fusionne l’énergie du street-art avec une sensibilité contemporaine :
+          des œuvres qui unissent couleur, geste, message et symboles d’amour.
+        </p>
+
+        <p><strong>Services possibles :</strong></p>
+        <ul>
+          <li>Commandes murales (intérieur / extérieur)</li>
+          <li>Toiles et œuvres de collection</li>
+          <li>Sculptures et installations</li>
+          <li>Collaborations avec marques / événements</li>
+        </ul>
+      </section>
+
+      <!-- LINKS -->
+      <section class="card">
+        <h3>Liens & Références</h3>
+        <div class="links">
+          <a href="https://www.instagram.com/faben.art/" target="_blank">
+            Instagram — @faben.art
+          </a>
+          <a href="#" target="_blank">
+            Facebook — Page officielle
+          </a>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section class="card">
+        <h3>Galerie</h3>
+
+        <div class="gallery">
+          <!-- Remplace par tes vraies images -->
+          <img src="https://via.placeholder.com/600x800?text=Œuvre+1" alt="Œuvre 1">
+          <img src="https://via.placeholder.com/600x900?text=Œuvre+2" alt="Œuvre 2">
+          <img src="https://via.placeholder.com/600x700?text=Œuvre+3" alt="Œuvre 3">
+        </div>
+
+        <p style="margin-top:10px;font-size:12px;color:var(--muted);">
+          Remplace les images par les photos officielles des œuvres.
+        </p>
+      </section>
+
+      <footer>
+        © <span id="year"></span> — Landing page optimisée mobile / NFC / Vercel
+      </footer>
+
     </div>
+  </div>
 
-    <button class="btn" id="reloadBtn" aria-label="Ricarica avatar">↻ Ricarica</button>
-  </header>
-
-  <!-- AI FULLSCREEN -->
-  <main class="ai-wrap">
-    <iframe
-      id="aiFrame"
-      title="Digital Screen Italia – HeyGen"
-      allow="microphone; autoplay; clipboard-write"
-      referrerpolicy="no-referrer">
-    </iframe>
-  </main>
-
-  <!-- HEYGEN EMBED -->
   <script>
-    const host = "https://labs.heygen.com";
-    const share =
-      "eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJLYXR5YV9Qcm9mZXNzaW9uYWxMb29rX3B1%0D%0AYmxpYyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3YzLzM0%0D%0AOGRkZjUwM2M2NTRiOWJiYmI4YmVhOWY5MjEwZWFkXzU1ODcwL3ByZXZpZXdfdGFyZ2V0LndlYnAi%0D%0ALCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6dHJ1ZSwia25vd2xlZGdlQmFzZUlkIjoiMzY4YjE1NzJl%0D%0AYjQwNGY1ZGI3MWI3OWZkMjUyYTM1MTQiLCJ1c2VybmFtZSI6ImZiNDBjZGI1NjdlZjRjMTg5MDM4%0D%0ANDkwODI5YzIwZTZmIn0%3D";
-
-    const src = host + "/guest/streaming-embed?share=" + share + "&inIFrame=1";
-    const frame = document.getElementById("aiFrame");
-    frame.src = src;
-
-    document.getElementById("reloadBtn").addEventListener("click", () => {
-      frame.src = src + "&t=" + Date.now();
-    });
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
 </body>
